@@ -1,1 +1,353 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RvB Actie Dashboard - 06 Okt 2026</title>
+    <style>
+        :root {
+            /* Hand in Hand vzw 50 Jaar Huisstijl Kleuren */
+            --hih-green: #1E5939; 
+            --hih-orange: #E35220;
+            --hih-sand: #F5F2EB;
+            --hih-white: #FFFFFF;
+            --text-dark: #2C3531;
+            --text-gray: #555F5A;
+            --bg-light: #E5E0D8;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--hih-white);
+            border-radius: 40px 0 40px 0;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--hih-green);
+            color: var(--hih-white);
+            padding: 40px 40px 30px;
+            border-bottom: 6px solid var(--hih-orange);
+        }
+
+        .header-tag {
+            display: inline-block;
+            background-color: var(--hih-orange);
+            color: var(--hih-white);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--hih-sand);
+            font-size: 1.1rem;
+        }
+
+        /* KPI Bar */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: var(--hih-sand);
+            border-bottom: 1px solid #D8D2C5;
+        }
+
+        .kpi-box {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #D8D2C5;
+        }
+
+        .kpi-box:last-child { border-right: none; }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--hih-orange);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 30px 40px;
+            border-bottom: 1px solid #EAE5D9;
+        }
+
+        .section-title {
+            color: var(--hih-green);
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Cards Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-card {
+            background-color: var(--hih-sand);
+            padding: 20px;
+            border-radius: 12px 0 12px 0;
+            border-left: 4px solid var(--hih-green);
+        }
+
+        .info-card.orange { border-left-color: var(--hih-orange); }
+
+        .info-card h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '•';
+            color: var(--hih-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Action List (Personalized) */
+        .action-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--hih-white);
+            border: 1px solid #EAE5D9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: transform 0.1s;
+        }
+
+        .action-item:hover {
+            transform: translateX(5px);
+            border-color: var(--hih-orange);
+        }
+
+        .action-owner {
+            background-color: var(--text-dark);
+            color: var(--hih-white);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            width: 120px;
+            text-align: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .action-owner.etienne { background-color: var(--hih-green); }
+        .action-owner.jf { background-color: var(--hih-orange); }
+        .action-owner.tine { background-color: #0369a1; }
+        .action-owner.team { background-color: var(--text-gray); }
+
+        .action-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid, .card-grid { grid-template-columns: 1fr; }
+            .kpi-box { border-right: none; border-bottom: 1px solid #D8D2C5; }
+            .action-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .container { border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="header-tag">Executive Summary</div>
+        <h1>RvB Actie Dashboard</h1>
+        <p>Synthese van de bestuursvergadering — 6 Oktober 2026</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+        <div class="kpi-box">
+            <div class="kpi-value">233</div>
+            <div class="kpi-label">Congres Inschrijvingen</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value">~€ 6K</div>
+            <div class="kpi-label">Financieel Tekort Congres</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value">€ 300K</div>
+            <div class="kpi-label">Eerste Bod Pastorij</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value">23 Nov</div>
+            <div class="kpi-label">Deadline Wijnveiling</div>
+        </div>
+    </div>
+
+    <!-- Vastgoeddossier De Pastorij -->
+    <div class="content-section">
+        <h2 class="section-title"><span>🏘️</span> Vastgoeddossier 'De Pastorij'</h2>
+        
+        <div class="card-grid">
+            <div class="info-card">
+                <h4>Financiële Status</h4>
+                <ul>
+                    <li><strong>Vraagprijs:</strong> €530.000</li>
+                    <li><strong>Schatting (Axel W.):</strong> €330.000 - €350.000</li>
+                    <li><strong>Renovatiekosten (EPC):</strong> €100.000 - €120.000 (Isolatie, warmtepomp, zonnepanelen)</li>
+                    <li><strong>Verdienmodel:</strong> 4 à 5 units beschut wonen = €1.800 tot €2.250/maand huurinkomsten (dekt aflossing).</li>
+                </ul>
+            </div>
+            
+            <div class="info-card orange">
+                <h4>De 3 Financieringspistes</h4>
+                <ul>
+                    <li><strong>Piste 1:</strong> PCGS wordt eigenaar via erfpacht (40 jaar), Hand in Hand is gebruiker.</li>
+                    <li><strong>Piste 2:</strong> De Hiëronymus Stichting leent geld aan HiH. Na 40 jaar volle eigendom voor HiH.</li>
+                    <li><strong>Piste 3:</strong> HiH financiert zelf (Lening €155K + eigen middelen).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jubileum & Congres -->
+    <div class="content-section">
+        <h2 class="section-title"><span>🎉</span> Jubileum & Congres (20-21 Okt)</h2>
+        
+        <div class="card-grid">
+            <div class="info-card">
+                <h4>Congres Logistiek</h4>
+                <ul>
+                    <li><strong>Aanwezigheden:</strong> 233 congres, ~150 receptie, max 60 diner.</li>
+                    <li><strong>Catering:</strong> Receptie (1 fles wijn / 3 pers), Diner (Halve fles / pers, 2/3 rood).</li>
+                    <li><strong>Sponsors:</strong> MetaGalte (€5.500), Stad Gent (€5K tickets), Stichting VIP (€1.000), WT Technique (€200).</li>
+                    <li>Nieuwe afspraak met Fintro & Miglia op 13/10.</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h4>Jubileumkrant (50 Jaar)</h4>
+                <ul>
+                    <li>Omvang: ~24 pagina's, incl. historisch interview met Ludo De Clippel.</li>
+                    <li>Besluit: Krant wordt gedrukt! Budget: €1.250 voorzien.</li>
+                    <li>Optie: Achterpagina verkopen als advertentieruimte (€500-€1000) om kosten te dekken.</li>
+                    <li>Verzending: Digitaal als bedanking na het congres.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operationeel -->
+    <div class="content-section">
+        <h2 class="section-title"><span>🍷</span> Operationeel & Overig</h2>
+        <div class="info-card">
+            <ul>
+                <li><strong>Wijnveiling:</strong> Deadline bestellingen op 23/11, levering op 04/12. Nieuwe selectie rode wijnen.</li>
+                <li><strong>Vzw Bieënkorf:</strong> Betaalt de factuur (~€770) voor het vernieuwde, gebroken hekslot.</li>
+                <li><strong>Uitgesteld naar Planningsdag 2027:</strong> Tarieven maaltijden, rookplaats, waterafvoer, Coleta-fonds (armoede) en taakverdeling.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Actielijst -->
+    <div class="content-section">
+        <h2 class="section-title"><span>📋</span> To-Do / Actielijst</h2>
+        
+        <div class="action-list">
+            <div class="action-item">
+                <div class="action-owner jf">Jean-François</div>
+                <div class="action-text">Verkennend bod uitbrengen van ~€300.000 op de Pastorij.</div>
+            </div>
+            
+            <div class="action-item">
+                <div class="action-owner etienne">Etienne</div>
+                <div class="action-text">Contact opnemen met Stichting Hiëronymus ivm Piste 1 & 2 voor aankoop Pastorij.</div>
+            </div>
+
+            <div class="action-item">
+                <div class="action-owner tine">Tine & Ruben</div>
+                <div class="action-text">Overleg over wie de factuurverwerking van de wijnveiling overneemt van Ruben.</div>
+            </div>
+
+            <div class="action-item">
+                <div class="action-owner team">Iedereen / Team</div>
+                <div class="action-text">Drukker contacteren voor jubileumkrant (deadline woensdag!) + GDPR toestemmingen foto's regelen.</div>
+            </div>
+
+            <div class="action-item">
+                <div class="action-owner team">Social Media</div>
+                <div class="action-text">Morgen LinkedIn post plaatsen en breed delen binnen het eigen netwerk.</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+```eof
